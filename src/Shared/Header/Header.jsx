@@ -16,7 +16,8 @@ const Header = () => {
             <div className='gap-7 justify-end'>
 
                 <p>Profile</p>
-                <button className='btn btn-warning'>Login</button>
+
+                <Link to={'/login'} className='btn btn-warning'>Login</Link>
 
             </div>
         </div>
