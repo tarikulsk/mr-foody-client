@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <div className="navbar text-white grid md:grid-cols-3 px-10 py-2 bg-purple-400 text-primary-content">
+        <div className="navbar text-white grid md:grid-cols-3 px-10 py-4 bg-purple-700 text-primary-content">
             <div>
                 {/* <a className="btn btn-ghost normal-case text-3xl font-bold "></a> */}
                 <Link to={'/'} className="btn btn-ghost normal-case text-3xl font-bold ">Mr. Foody</Link>
@@ -17,7 +17,7 @@ const Header = () => {
 
                 <p>Profile</p>
 
-                <Link to={'/login'} className='btn btn-warning'>Login</Link>
+                <Link to={'/login'} className='px-4 py-1 rounded btn-warning text-white'>Login</Link>
 
             </div>
         </div>
