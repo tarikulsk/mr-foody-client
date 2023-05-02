@@ -1,7 +1,48 @@
 
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const SignUp = () => {
+    const { signUp } = useContext(AuthContext);
+
+    const [error, setError] = useState('');
+
+
+    const handleSignup = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirm = form.confirm.value;
+        const name = form.name.value;
+
+        console.log(email, password, confirm, name);
+
+        if (password !== confirm) {
+            setError('Passwords do not match')
+            return
+
+        }
+        else if (password.length < 6) {
+            setError('Password must be 6 characters long')
+            return
+        }
+
+        signUp(email, password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                form.reset();
+                // navigate(from, { replace: true })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    }
+
+
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
@@ -10,12 +51,18 @@ const SignUp = () => {
                         <h1 className="text-3xl font-bold">Please Register!</h1>
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <form className="card-body">
+                        <form onSubmit={handleSignup} className="card-body">
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Full Name</span>
                                 </label>
                                 <input type="text" name='name' required placeholder="Full Name" className="input input-bordered" />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text" name='photoURL' required placeholder="Photo URL" className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
@@ -41,24 +88,13 @@ const SignUp = () => {
                                 <button className="btn btn-primary">Register</button>
                             </div>
                         </form>
-                        <p className='text-center'>If You are Already User ? <Link to={'/login'} className='btn-link'>Login</Link> </p>
-                        <hr />
-                        <div className='mt-5 p-5 text-center '>
-                            <h4 className='text-2xl'>Login With </h4>
+                        <br />
+                        <p className='text-pink-800 text-center'>{error}</p>
 
-                            <div className='flex mt-3 justify-around'>
-                                <div >
 
-                                    <button><img className='h-12 w-12' src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png" alt="" /></button>
+                        <p className='text-center mb-3'>If You are Already User ? <Link to={'/login'} className='btn-link'>Login</Link> </p>
 
-                                </div>
-                                <div>
-                                    <button><img className='h-12 w-12' src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="" /></button>
 
-                                </div>
-
-                            </div>
-                        </div>
 
                     </div>
 

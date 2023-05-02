@@ -1,7 +1,57 @@
-
+/* eslint-disable no-unused-vars */
+// // eslint-disable-next-line no-unused-vars, no-unused-vars
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../AuthProvider/AuthProvider';
+
+
 
 const Login = () => {
+    const { logIn, signInWithGoogle } = useContext(AuthContext);
+    const [show, setShow] = useState('');
+    const [error, setError] = useState('');
+
+
+    const handleLogin = event => {
+        event.preventDefault()
+
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        logIn(email, password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                form.reset();
+                // navigate(from, { replace: true })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+        console.log(email, password);
+        if (password.length > 6) {
+            setError('Password must be 6 characters')
+            return
+        }
+
+    }
+
+    const handleGoogleLogin = () => {
+        signInWithGoogle()
+            .then(result => {
+                const loggedUser = result.user
+                console.log(loggedUser)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    }
+
+
+
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
@@ -10,7 +60,7 @@ const Login = () => {
                         <h1 className="text-3xl font-bold">Please Login now!</h1>
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <form className="card-body">
+                        <form onSubmit={handleLogin} className="card-body">
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -21,13 +71,21 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name='password' required placeholder="password" className="input input-bordered" />
+                                <input type={show ? 'text' : 'password'} name='password' placeholder="password" className="input input-bordered" />
+                                <p onClick={() => { setShow(!show) }}> <small>
+                                    {
+                                        show ? <span>Hide Password</span> : <span>Show Password</span>
+                                    }
+                                </small> </p>
 
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
                             </div>
                         </form>
+                        <br />
+                        <p className='text-center'>{error}</p>
+                        <br />
                         <p className='text-center'>If You are a New User ? <Link to={'/signup'} className='btn-link'>Register</Link> </p>
                         <hr />
                         <div className='mt-5 p-5 text-center '>
@@ -36,7 +94,7 @@ const Login = () => {
                             <div className='flex mt-3 justify-around'>
                                 <div >
 
-                                    <button><img className='h-12 w-12' src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png" alt="" /></button>
+                                    <button onClick={handleGoogleLogin}><img className='h-12 w-12' src="https://cdn.freebiesupply.com/logos/large/2x/google-icon-logo-png-transparent.png" alt="" /></button>
 
                                 </div>
                                 <div>
