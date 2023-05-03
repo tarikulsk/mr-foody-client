@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 // // eslint-disable-next-line no-unused-vars, no-unused-vars
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
 
@@ -11,6 +11,9 @@ const Login = () => {
     const [show, setShow] = useState('');
     const [error, setError] = useState('');
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
 
     const handleLogin = event => {
         event.preventDefault()
@@ -18,13 +21,15 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+        const from = location.state?.from?.pathname || '/';
 
         logIn(email, password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 form.reset();
-                // navigate(from, { replace: true })
+
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.log(error);
@@ -83,7 +88,7 @@ const Login = () => {
                                 <button className="btn btn-primary">Login</button>
                             </div>
                         </form>
-                        <br />
+
                         <p className='text-center'>{error}</p>
                         <br />
                         <p className='text-center'>If You are a New User ? <Link to={'/signup'} className='btn-link'>Register</Link> </p>
