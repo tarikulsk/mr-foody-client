@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { FaRegThumbsUp } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Recipe = (recipe) => {
     console.log(recipe.recipe)
@@ -16,7 +17,9 @@ const Recipe = (recipe) => {
                     <p>Numbers of recipes: {recipes}</p>
                     <p>{FaRegThumbsUp} Total Like: {likes}</p>
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary">View Recipes</button>
+                        <Link to={`/recipe/${recipess.id}`}
+
+                            className="btn btn-primary">View Recipes</Link >
                     </div>
                 </div>
             </div>

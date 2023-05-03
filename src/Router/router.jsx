@@ -8,6 +8,7 @@ import Blogs from "../Pages/Blogs/Blogs";
 import Login from "../component/Login/Login";
 import SignUp from "../component/SignUp/SignUp";
 import PrivetRoute from "../component/PrivetRoute/PrivetRoute";
+import ViewRecipe from "../Pages/ViewRecipe/ViewRecipe";
 // import ViewRecipe from "../Pages/ViewRecipe/ViewRecipe";
 
 const router = createBrowserRouter([
@@ -31,12 +32,13 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUp></SignUp>
+            },
+            {
+                path: 'recipe/:id',
+                element: <ViewRecipe></ViewRecipe>,
+                loader: ({ params }) => fetch(`http://localhost:5000/recipe/${params.id}`)
+
             }
-            // {
-            //     path: 'viewrecipe/viewrecipeId',
-            //     element: <ViewRecipe></ViewRecipe>,
-            //     loader: () => fetch('http://localhost:5000/recipes')
-            // }
         ]
     },
 ]);
