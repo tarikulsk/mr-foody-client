@@ -10,7 +10,7 @@ const Recipe = (recipe) => {
     return (
         <div>
             <div className="card card-compact w-80 bg-base-100 p-10 shadow-xl">
-                <figure><img className='h-72 w-40' src={chefPicture} alt="Shoes" /></figure>
+                <figure><img className='h-72 w-40' src={chefPicture} /></figure>
                 <div className="card-body">
                     <h2 className="card-title">Chef Name: {chefName}</h2>
                     <p>Experience: {experience}</p>
