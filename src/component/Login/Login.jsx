@@ -7,7 +7,7 @@ import { AuthContext } from '../AuthProvider/AuthProvider';
 
 
 const Login = () => {
-    const { logIn, signInWithGoogle } = useContext(AuthContext);
+    const { logIn, signInWithGoogle, signInWithGit } = useContext(AuthContext);
     const [show, setShow] = useState('');
     const [error, setError] = useState('');
 
@@ -45,6 +45,17 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         signInWithGoogle()
+            .then(result => {
+                const loggedUser = result.user
+                console.log(loggedUser)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    }
+    const handleGitLogin = () => {
+        signInWithGit()
             .then(result => {
                 const loggedUser = result.user
                 console.log(loggedUser)
@@ -103,7 +114,7 @@ const Login = () => {
 
                                 </div>
                                 <div>
-                                    <button><img className='h-12 w-12' src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="" /></button>
+                                    <button onClick={handleGitLogin}><img className='h-12 w-12' src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="" /></button>
 
                                 </div>
 
