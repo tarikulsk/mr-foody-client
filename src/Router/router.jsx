@@ -9,6 +9,7 @@ import Login from "../component/Login/Login";
 import SignUp from "../component/SignUp/SignUp";
 import PrivetRoute from "../component/PrivetRoute/PrivetRoute";
 import ViewRecipe from "../Pages/ViewRecipe/ViewRecipe";
+import Error from "../Pages/Error/Error";
 // import ViewRecipe from "../Pages/ViewRecipe/ViewRecipe";
 
 const router = createBrowserRouter([
@@ -36,10 +37,15 @@ const router = createBrowserRouter([
             {
                 path: 'recipe/:id',
                 element: <ViewRecipe></ViewRecipe>,
-                loader: ({ params }) => fetch(`http://localhost:5000/recipe/${params.id}`)
+                loader: ({ params }) => fetch(`https://mr-foody-server-side-tarikulsk.vercel.app/recipe/${params.id}`)
 
+            },
+            {
+                path: '*',
+                element: <Error></Error>
             }
         ]
-    },
+    }
+
 ]);
 export default router;

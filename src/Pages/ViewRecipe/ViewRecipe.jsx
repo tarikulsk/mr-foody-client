@@ -4,6 +4,7 @@ import { useLoaderData, useParams } from 'react-router-dom';
 import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
 
 const ViewRecipe = () => {
+    // eslint-disable-next-line no-unused-vars
     const { id } = useParams()
     const recipe = useLoaderData();
     console.log(recipe);
